@@ -2,10 +2,12 @@ package GenericUtility;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -61,6 +63,21 @@ public class ExcelUtility {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void setdata(String path, int i,int j, String v) throws EncryptedDocumentException, IOException
+	{
+	FileInputStream file = new FileInputStream(path);
+	Workbook book = WorkbookFactory.create(file);
+	Sheet sh = book.getSheet("Sheet1");
+	Row row = sh.getRow(i);
+	row.createCell(j).setCellValue(v);
+FileOutputStream fout = new FileOutputStream(path);
+book.write(fout);
+book.close();
+	
+	
+	
 	}
 
 }
